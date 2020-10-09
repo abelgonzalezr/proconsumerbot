@@ -9,6 +9,7 @@
   "author": "Abel Gonzalez",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "download-pdf": "^0.1.6",
     "scrape-it": "^5.2.4"
   }
