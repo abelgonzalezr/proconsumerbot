@@ -1,0 +1,15 @@
+{
+  "name": "proconsumer-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abel Gonzalez",
+  "license": "MIT",
+  "dependencies": {
+    "download-pdf": "^0.1.6",
+    "scrape-it": "^5.2.4"
+  }
+}
