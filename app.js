@@ -1,8 +1,10 @@
 const scrapeIt = require("scrape-it")
 const download = require('download-pdf')
+require('dotenv').config()
+
 var productUrl;
 // obtener lista de productos
-scrapeIt("https://proconsumidor.gob.do", {
+scrapeIt(process.env.proconsumerURL, {
     title: "productos"
     , pages: {
         listItem: "li.menu-item-16 ul.sub-menu li.menu-item-object-custom"
