@@ -56,4 +56,3 @@ function pdfToJson() {
 
 
 module.exports.pdfToJson = pdfToJson;
-

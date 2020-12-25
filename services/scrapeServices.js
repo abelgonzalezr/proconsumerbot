@@ -59,10 +59,22 @@ function downloadPdfs(){
                    
                     //dowload PDFS
                     var pdf = data.pages[0].url
-            
+                    let documentName="";
+
+                    
+                    if (data.pages[0].title.includes("Alimenticios")){
+                        documentName="Alimenticios"
+                    }else if (data.pages[0].title.includes("Lácteos")){
+                        documentName="Lácteos"
+                    }else if (data.pages[0].title.includes("Ferreteros")){
+                        documentName="Ferreteros"
+                    }else if (data.pages[0].title.includes("Medicamento")){
+                        documentName="Medicamento"
+                    }
+                    console.log(data.pages[0].title);
                     var options = {
                         directory: "./pdf/",
-                        filename: data.pages[0].title + ".pdf"
+                        filename:`${documentName}.pdf`
                     }
             
                     download(pdf, options, function (err) {
