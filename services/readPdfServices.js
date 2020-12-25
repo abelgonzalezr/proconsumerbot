@@ -6,6 +6,7 @@ var medicines = require('../models/medicineModel');
 
 
 function getDrugstores(drugstores){
+    //
     drugstores= drugstores.filter( e=> e !== 'Desviación ' 
     && e!== 'Resumen' 
     && e!=='Orden' 
@@ -26,7 +27,6 @@ function pdfToJson() {
     let dataBuffer = fs.readFileSync(pdfFilePath);
     pdf2table.parse(dataBuffer, function (err, rows, rowsdebug) {
         if (err) return console.log(err);
-        //fs.writeFileSync("test.txt", rows);
         let drugsstores = getDrugstores(rows[0]);
 
         for (i=2; i<= rows.length ; i++){
@@ -39,9 +39,13 @@ function pdfToJson() {
                     concentration: rows[i][2],
                     maker: rows[i][3],
                     availablePresentation: rows[i][4],
-                    price: rows[i][rows[0].indexOf(drugsstores)]
+                    price: rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])]
                 });
-                medicine.save(()=>{})
+               if(rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])] !== '' && rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])] !== null && 
+                    rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])] !== undefined && rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])] !== '#N/D' && rows[i][rows[0].indexOf(drugsstores[drugsstoreIteration])] !== '#¡DIV/0!' ){
+                   
+                 medicine.save(()=>{})
+               }
             }
 
            
