@@ -6,7 +6,7 @@ var medicines = require('../models/medicineModel');
 
 
 function getDrugstores(drugstores){
-    //
+    //Delete Others headers
     drugstores= drugstores.filter( e=> e !== 'Desviación ' 
     && e!== 'Resumen' 
     && e!=='Orden' 
