@@ -11,6 +11,11 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "download-pdf": "^0.1.6",
+    "mongoose": "^5.11.8",
+    "pdf-parse": "^1.1.1",
+    "pdf2json": "^1.2.0",
+    "pdf2table": "0.0.2",
+    "pdfreader": "^1.2.8",
     "scrape-it": "^5.2.4"
   }
 }

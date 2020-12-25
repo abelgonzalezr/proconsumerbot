@@ -1,3 +1,5 @@
 const scrapeServices = require("./services/scrapeServices");
+const readPdfServices = require("./services/readPdfServices");
 
-scrapeServices.downloadPdfs();
+readPdfServices.pdfToJson();
+//scrapeServices.downloadPdfs();
