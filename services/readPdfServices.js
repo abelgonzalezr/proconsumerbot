@@ -31,10 +31,10 @@ function pdfToJson() {
 
         for (i=2; i<= rows.length ; i++){
 
-            for (i2=0; i2<= drugsstores.length ; i2++){
+            for (drugsstoreIteration=0; drugsstoreIteration<= drugsstores.length ; drugsstoreIteration++){
                 var medicine = new medicines({
-                    drugsstoreName: drugsstores[i2],
-                    //numeroFarmacia: rows[1][0],
+                    drugsstoreName: drugsstores[drugsstoreIteration],
+                    numeroFarmacia: rows[1][drugsstoreIteration],
                     medicineName: rows[i][1],
                     concentration: rows[i][2],
                     maker: rows[i][3],
@@ -46,15 +46,6 @@ function pdfToJson() {
 
            
         }
-       
-            //console.log(rows[2]);
-        // console.log(rows.length);
-
-        // for(let i=2; i<= rows.length;i++){
-
-        //         console.table(rows[i][1])
-
-        // }
     });
 
 }
