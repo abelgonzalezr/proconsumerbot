@@ -7,8 +7,10 @@ var foods = require('../models/foodModel');
 
 async function insertPdfs() {
 
-    //await insertMedicine();
-    await insertFood();
+    await insertMedicine();
+    await insertFood("Food");
+    await insertFood("dairyProducts");
+
 }
 
 function getCommercesName(documentHeader, type) {
@@ -46,8 +48,8 @@ function getCommercesName(documentHeader, type) {
 
 
 
-function insertFood() {
-    let pdfFilePath = "./pdf/Food.pdf";
+function insertFood(filename) {
+    let pdfFilePath = `./pdf/${filename}.pdf`;
     let dataBuffer = fs.readFileSync(pdfFilePath);
     pdf2table.parse(dataBuffer, function (err, rows, rowsdebug) {
         if (err) return console.log(err);
