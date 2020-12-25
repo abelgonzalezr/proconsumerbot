@@ -63,17 +63,17 @@ function downloadPdfs(){
 
                     
                     if (data.pages[0].title.includes("Alimenticios")){
-                        documentName="Alimenticios"
+                        documentName="Food"
                     }else if (data.pages[0].title.includes("Lácteos")){
-                        documentName="Lácteos"
+                        documentName="dairyProducts"
                     }else if (data.pages[0].title.includes("Ferreteros")){
-                        documentName="Ferreteros"
+                        documentName="Ironmongery"
                     }else if (data.pages[0].title.includes("Medicamento")){
-                        documentName="Medicamento"
+                        documentName="Medicines"
                     }
                     console.log(data.pages[0].title);
                     var options = {
-                        directory: "./pdf/",
+                        directory: process.env.pdfPath,
                         filename:`${documentName}.pdf`
                     }
             
