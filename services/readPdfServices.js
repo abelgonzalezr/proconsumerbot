@@ -3,13 +3,14 @@ var pdf2table = require('pdf2table');
 var db = require('../helpers/db');
 var medicines = require('../models/medicineModel');
 var foods = require('../models/foodModel');
-
+var ironmongerys = require('../models/ironmongeryModel');
 
 async function insertPdfs() {
 
     await insertMedicine();
     await insertFood("Food");
     await insertFood("dairyProducts");
+    await insertIronmongery();
 
 }
 
@@ -40,7 +41,9 @@ function getCommercesName(documentHeader, type) {
             && e !== 'Desviación'
             && e !== 'Estándar'
             );
-        console.log(documentHeader);
+        return documentHeader;
+    }else {
+        documentHeader = documentHeader.filter(e => e !== 'Resumen');
         return documentHeader;
     }
 
@@ -108,5 +111,34 @@ function insertMedicine() {
 
 }
 
+function insertIronmongery(){
+    let pdfFilePath = `./pdf/Ironmongery.pdf`;
+    let dataBuffer = fs.readFileSync(pdfFilePath);
+    pdf2table.parse(dataBuffer, function (err, rows, rowsdebug) {
+        if (err) return console.log(err);
+        let commercesName = getCommercesName(rows[0],"Ironmongery");
+
+        for (i = 2; i <= rows.length; i++) {
+
+            for (commercesNameIteration = 0; commercesNameIteration < commercesName.length; commercesNameIteration++) {
+                
+                var ironmongery = new ironmongerys({
+                    ironmongeryName: commercesName[commercesNameIteration],
+                    producDescription: rows[i][1],
+                    brand: rows[i][2],
+                    unitMeasurement: rows[i][3],
+                    price: rows[i][rows[0].indexOf(commercesName[commercesNameIteration])]
+                });
+                if (rows[i][rows[0].indexOf(commercesName[commercesNameIteration])] !== '' && rows[i][rows[0].indexOf(commercesName[commercesNameIteration])] !== null &&
+                    rows[i][rows[0].indexOf(commercesName[commercesNameIteration])] !== undefined && rows[i][rows[0].indexOf(commercesName[commercesNameIteration])] !== '#N/D' && rows[i][rows[0].indexOf(commercesName[commercesNameIteration])] !== '#¡DIV/0!') {
+
+                    ironmongery.save(() => { })
+                }
+            }
+
+
+        }
+    });
+}
 
 module.exports.insertPdfs = insertPdfs;
