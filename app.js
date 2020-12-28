@@ -5,7 +5,9 @@ require('dotenv').config();
  
 
 console.log("start app");
+
 cron.schedule(process.env.cronRules, () => {
+  readPdfServices.deletePdfs();
   console.log('Init scraping process');
   scrapeServices.downloadPdfs();
   setTimeout(()=>{

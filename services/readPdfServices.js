@@ -1,29 +1,18 @@
 const fs = require('fs');
+const path = require('path');
 var pdf2table = require('pdf2table');
 var db = require('../helpers/db');
 var medicines = require('../models/medicineModel');
 var foods = require('../models/foodModel');
 var ironmongerys = require('../models/ironmongeryModel');
 
-function insertPdfs(pdfToRead) {
-  console.log("init read pdf")
+function insertPdfs() {
+
+    console.log("init read pdf")
     insertFood("Food");
-    
-     insertFood("dairyProducts");
-    
-     insertMedicine();
-    
-     insertIronmongery();
-    // switch (pdfToRead) {
-    //     case "Food.pdf":
-    //      insertFood("Food");
-    //     case "dairyProducts.pdf":
-    //      insertFood("dairyProducts");
-    //     case "Medicines.pdf":
-    //      insertMedicine();
-    //     case "Ironmongery.pdf":
-    //      insertIronmongery();
-    // }
+    insertFood("dairyProducts");
+    insertMedicine();
+    insertIronmongery();
 
 }
 
@@ -162,4 +151,20 @@ function insertIronmongery() {
     }
 }
 
+
+function deletePdfs(){
+    console.log("Delete all pdfs");
+    const filePath = "./pdf/"
+    fs.readdir(filePath, (err, files) => {
+        if (err) throw err;
+      
+        for (const file of files) {
+          fs.unlink(path.join(filePath, file), err => {
+            if (err) throw err;
+          });
+        }
+      });
+}
+
 module.exports.insertPdfs = insertPdfs;
+module.exports.deletePdfs = deletePdfs;
