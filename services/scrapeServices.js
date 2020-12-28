@@ -1,6 +1,8 @@
 const scrapeIt = require("scrape-it")
 const download = require('download-pdf')
-require('dotenv').config()
+const readPdfServices = require("./readPdfServices");
+
+require('dotenv').config();
 
 function downloadPdfs(){
     
@@ -79,13 +81,16 @@ function downloadPdfs(){
             
                     download(pdf, options, function (err) {
                         if (err) throw err
-                        console.log("Descarga lista")
+                        console.log("The Download is Ready")
                     })
                 })
             }
     
         }
     
+    }).then(() =>{
+        console.log("init Read process");
+        readPdfServices.insertPdfs();
     })
 }
 
