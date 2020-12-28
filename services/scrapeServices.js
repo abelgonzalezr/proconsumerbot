@@ -4,9 +4,9 @@ const readPdfServices = require("./readPdfServices");
 
 require('dotenv').config();
 
-function downloadPdfs(){
-    
-    
+function downloadPdfs() {
+
+
     var productUrl;
     // obtener lista de productos
     scrapeIt(process.env.proconsumerURL, {
@@ -30,18 +30,18 @@ function downloadPdfs(){
                             , attr: "href"
                         }
                     }
-    
+
                 }
             }
         }
     }).then(({ data, response }) => {
         console.log(`Status Code: ${response.statusCode}`)
         for (let index = 0; index < data.pages.length; index++) {
-    
-            if(data.pages[index].submenu.length !=0) {
+
+            if (data.pages[index].submenu.length != 0) {
                 productUrl = data.pages[index].submenu[0].url;
                 console.log(productUrl);
-            
+
                 // obtener datos por producto en especifico
                 scrapeIt(productUrl, {
                     pages: {
@@ -54,43 +54,41 @@ function downloadPdfs(){
                                 , attr: "href"
                             }
                         }
-            
+
                     }
-                }).then(({ data, response }) => {
+                }).then(async ({ data, response }) => {
                     console.log(`Status Code: ${response.statusCode}`)
-                   
+
                     //dowload PDFS
                     var pdf = data.pages[0].url
-                    let documentName="";
+                    let documentName = "";
 
-                    
-                    if (data.pages[0].title.includes("Alimenticios")){
-                        documentName="Food"
-                    }else if (data.pages[0].title.includes("Lácteos")){
-                        documentName="dairyProducts"
-                    }else if (data.pages[0].title.includes("Ferreteros")){
-                        documentName="Ironmongery"
-                    }else if (data.pages[0].title.includes("Medicamento")){
-                        documentName="Medicines"
+
+                    if (data.pages[0].title.includes("Alimenticios")) {
+                        documentName = "Food"
+                    } else if (data.pages[0].title.includes("Lácteos")) {
+                        documentName = "dairyProducts"
+                    } else if (data.pages[0].title.includes("Ferreteros")) {
+                        documentName = "Ironmongery"
+                    } else if (data.pages[0].title.includes("Medicamento")) {
+                        documentName = "Medicines"
                     }
                     console.log(data.pages[0].title);
                     var options = {
                         directory: process.env.pdfPath,
-                        filename:`${documentName}.pdf`
+                        filename: `${documentName}.pdf`
                     }
-            
-                    download(pdf, options, function (err) {
+
+                    await download(pdf, options, async function (err) {
                         if (err) throw err
-                        console.log("The Download is Ready")
+                        console.log(`The Download ${options.filename} is Ready`);
                     })
+                    
                 })
             }
-    
+
         }
-    
-    }).then(() =>{
-        console.log("init Read process");
-        readPdfServices.insertPdfs();
+
     })
 }
 
