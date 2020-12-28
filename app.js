@@ -12,7 +12,7 @@ cron.schedule(process.env.cronRules, () => {
   scrapeServices.downloadPdfs();
   setTimeout(()=>{
     readPdfServices.insertPdfs();
-  },30000)
+  },50000)
   
 });
 
