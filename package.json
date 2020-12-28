@@ -12,6 +12,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "download-pdf": "^0.1.6",
+    "express": "^4.17.1",
     "mongoose": "^5.11.8",
     "node-cron": "^2.0.3",
     "pdf2table": "0.0.2",
