@@ -7,7 +7,7 @@ require('dotenv').config();
  
 app.listen(process.env.PORT, () => {
   console.log(`App listening at http://localhost:${process.env.PORT}`)
-  cron.schedule(process.env.cronRules, () => {
+  //cron.schedule(process.env.cronRules, () => {
     readPdfServices.deletePdfs();
     console.log('Init scraping process');
     scrapeServices.downloadPdfs();
@@ -15,7 +15,7 @@ app.listen(process.env.PORT, () => {
       readPdfServices.insertPdfs();
     },50000)
     
-  });
+  //});
 })
 
 
